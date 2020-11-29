@@ -4,6 +4,7 @@ const Discord = require('discord.js')
 
 const fs = require('fs')
 const config = JSON.parse(fs.readFileSync('config.json', 'utf8'))
+const { Client, MessageAttachment } = require('discord.js');
 
 var client = new Discord.Client()
 
@@ -22,7 +23,8 @@ client.on('ready', () => {
 var cmdmap = {
   say: cmd_say,
   test: cmd_test,
-  ping: cmd_ping
+  ping: cmd_ping,
+  rip: cmd_rip
 }
 
 //functions for the comands
@@ -38,6 +40,13 @@ function cmd_test(msg, args){
 function cmd_ping(msg, args){
   msg.channel.send('pong')
 }
+
+function cmd_rip(msg, args){
+  const attachment = new MessageAttachment('https://i.imgur.com/w3duR07.png');
+  msg.channel.send(attachment);
+}
+
+
 
 //Botcommands set. Lets go!
 
@@ -60,8 +69,10 @@ client.on('message', (msg) => {
 
     //giving output:
     if(invoke in cmdmap){
+      //activate script for the command
       cmdmap[invoke](msg, args)
     } else {
+      //there is no such command? Thats a shame
       msg.channel.send(invoke + ' is not a command')
     }
   }
