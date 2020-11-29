@@ -27,7 +27,8 @@ var cmdmap = {
   ping: cmd_ping,
   rip: cmd_rip,
   embed: cmd_embed,
-  help: cmd_help
+  help: cmd_help,
+  role: cmd_role
 }
 
 //functions for the comands
@@ -61,7 +62,7 @@ function cmd_embed(msg, args){
     msg.channel.send(embed);
 }
 
-funktion cmd_help(msg, args){
+function cmd_help(msg, args){
   const embed = new MessageEmbed()
     .setTitle('Here is some help')
     .setColor(0xffff00)
@@ -72,6 +73,19 @@ funktion cmd_help(msg, args){
       'rip - you are RIP'
     );
     msg.channel.send(embed);
+}
+
+//Role manager
+function cmd_role(msg, args){
+
+// Check if they have one of many roles
+if(message.member.roles.cache.has(role.id)) {
+  member.roles.remove(role).catch(console.error);
+} else {
+  msg.member.roles.add(args).catch(console.error);
+}
+
+  
 }
 
 
@@ -116,5 +130,4 @@ client.on('guildMemberAdd', member => {
 });
 
 //Logging in the Bot to change the world. Or at least the discord server.
-
 client.login(config.token)
