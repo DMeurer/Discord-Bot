@@ -10,18 +10,26 @@ client.on('ready', () => {
 })
 
 //Init finish
+//cmdmap Begin
 
 var cmdmap = {
   say: cmd_say,
-  test: cmd_test
+  test: cmd_test,
+  ping: cmd_ping
 }
+
+//functions for the comands
 
 function cmd_say(msg, args){
   msg.channel.send(args.join(' '))
 }
 
 function cmd_test(msg, args){
-  console.log('test')
+  console.log('Its Working')
+}
+
+function cmd_ping(msg, args){
+  msg.channel.send('pong')
 }
 
 
