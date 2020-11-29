@@ -62,7 +62,7 @@ client.on('message', (msg) => {
     if(invoke in cmdmap){
       cmdmap[invoke](msg, args)
     } else {
-      msg.channel.send('This is not a command')
+      msg.channel.send(invoke + ' is not a command')
     }
   }
 })
