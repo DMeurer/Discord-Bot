@@ -4,7 +4,8 @@ const Discord = require('discord.js')
 
 const fs = require('fs')
 const config = JSON.parse(fs.readFileSync('config.json', 'utf8'))
-const { Client, MessageAttachment } = require('discord.js');
+const { ClientMA, MessageAttachment } = require('discord.js');
+const { ClientME, MessageEmbed } = require('discord.js');
 
 var client = new Discord.Client()
 
@@ -24,7 +25,9 @@ var cmdmap = {
   say: cmd_say,
   test: cmd_test,
   ping: cmd_ping,
-  rip: cmd_rip
+  rip: cmd_rip,
+  embed: cmd_embed,
+  help: cmd_help
 }
 
 //functions for the comands
@@ -46,6 +49,30 @@ function cmd_rip(msg, args){
   msg.channel.send(`${msg.author},`, attachment);
 }
 
+function cmd_embed(msg, args){
+  const embed = new MessageEmbed()
+    // Set the title of the field
+    .setTitle(args[0])
+    // Set the color of the embed
+    .setColor(0xff0000)
+    // Set the main content of the embed
+    .setDescription(args);
+    // Send the embed to the same channel as the message
+    msg.channel.send(embed);
+}
+
+funktion cmd_help(msg, args){
+  const embed = new MessageEmbed()
+    .setTitle('Here is some help')
+    .setColor(0xffff00)
+    .setDescription(
+      'help - show this Text',
+      'say - repeats whatever you type in',
+      'ping - try. What do you have to lose? :D',
+      'rip - you are RIP'
+    );
+    msg.channel.send(embed);
+}
 
 
 //Botcommands set. Lets go!
@@ -77,6 +104,16 @@ client.on('message', (msg) => {
     }
   }
 })
+
+//Welcome notification
+client.on('guildMemberAdd', member => {
+  // Send the message to a designated channel on a server:
+  const channel = member.guild.channels.cache.find(ch => ch.name === 'member-log');
+  // Do nothing if the channel wasn't found on this server
+  if (!channel) return;
+  // Send the message, mentioning the member
+  channel.send(`Welcome to the server, ${member}`);
+});
 
 //Logging in the Bot to change the world. Or at least the discord server.
 
