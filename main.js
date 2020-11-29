@@ -79,23 +79,49 @@ function cmd_help(msg, args){
 function cmd_role(msg, args){
   const myGuild = client.guilds.cache.get('782289316931567627');
 
-  if(args[0] == 'Helfer'){
-    const roleHelfer = myGuild.roles.cache.find(role => role.name === 'Helfer');
-    console.log(`Found the role ${roleHelfer.name}`);
-    msg.member.roles.add(roleHelfer);
+  if(args[0] == 'add'){
+    if(args[1] == 'Helfer'){
+      const roleHelfer = myGuild.roles.cache.find(role => role.name === 'Helfer');
+      console.log(`Found the role ${roleHelfer.name}`);
+      msg.member.roles.add(roleHelfer);
 
-  } else if(args[0] == 'Anfänger'){
-    const roleAnfaenger = myGuild.roles.cache.find(role => role.name === 'Anfänger');
-    console.log(`Found the role ${roleAnfaenger.name}`);
-    msg.member.addRole(roleAnfaenger).catch(console.error);
+    } else if(args[1] == 'Anfänger'){
+      const roleAnfaenger = myGuild.roles.cache.find(role => role.name === 'Anfänger');
+      console.log(`Found the role ${roleAnfaenger.name}`);
+      msg.member.roles.add(roleAnfaenger);
 
-  } else if(args[0] == 'Developer'){
-    const roleDeveloper = myGuild.roles.cache.find(role => role.name === 'Developer');
-    console.log(`Found the role ${roleDeveloper.name}`);
-    msg.member.addRole(roleDeveloper).catch(console.error);
+    } else if(args[1] == 'Developer'){
+      const roleDeveloper = myGuild.roles.cache.find(role => role.name === 'Developer');
+      console.log(`Found the role ${roleDeveloper.name}`);
+      msg.member.roles.add(roleDeveloper);
+
+    } else {
+      msg.channel.send('usage = "::role <add/remove> <Rolle>" ')
+    }
+
+  } else if(args[0] == 'remove'){
+
+    if(args[1] == 'Helfer'){
+      const roleHelfer = myGuild.roles.cache.find(role => role.name === 'Helfer');
+      console.log(`Found the role ${roleHelfer.name}`);
+      msg.member.roles.remove(roleHelfer);
+
+    } else if(args[1] == 'Anfänger'){
+      const roleAnfaenger = myGuild.roles.cache.find(role => role.name === 'Anfänger');
+      console.log(`Found the role ${roleAnfaenger.name}`);
+      msg.member.roles.remove(roleAnfaenger);
+
+    } else if(args[1] == 'Developer'){
+      const roleDeveloper = myGuild.roles.cache.find(role => role.name === 'Developer');
+      console.log(`Found the role ${roleDeveloper.name}`);
+      msg.member.roles.remove(roleDeveloper);
+
+    } else {
+      msg.channel.send('usage = "::role <add/remove> <Rolle>" ')
+    }
 
   } else {
-    msg.channel.send('This not a role')
+    msg.channel.send('usage = "::role <add/remove> <Rolle>" ')
   }
 }
 
@@ -133,7 +159,7 @@ client.on('message', (msg) => {
 //Welcome notification
 client.on('guildMemberAdd', member => {
   // Send the message to a designated channel on a server:
-  const channel = member.guild.channels.cache.find(ch => ch.name === 'member-log');
+  const channel = author.guild.channels.cache.find(ch => ch.name === 'member-log');
   // Do nothing if the channel wasn't found on this server
   if (!channel) return;
   // Send the message, mentioning the member
