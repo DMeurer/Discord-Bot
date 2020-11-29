@@ -43,7 +43,7 @@ function cmd_ping(msg, args){
 
 function cmd_rip(msg, args){
   const attachment = new MessageAttachment('https://i.imgur.com/w3duR07.png');
-  msg.channel.send(attachment);
+  msg.channel.send(`${message.author},`, attachment);
 }
 
 
