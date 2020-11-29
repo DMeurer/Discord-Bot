@@ -63,29 +63,40 @@ function cmd_embed(msg, args){
 }
 
 function cmd_help(msg, args){
+  var helpText = [
+    'help - show this Text',
+    'say - repeats whatever you type in',
+    'ping - try. What do you have to lose? :D',
+    'rip - rest in pieces']
   const embed = new MessageEmbed()
     .setTitle('Here is some help')
     .setColor(0xffff00)
-    .setDescription(
-      'help - show this Text',
-      'say - repeats whatever you type in',
-      'ping - try. What do you have to lose? :D',
-      'rip - you are RIP'
-    );
+    .setDescription(helpText);
     msg.channel.send(embed);
 }
 
 //Role manager
 function cmd_role(msg, args){
+  const myGuild = client.guilds.cache.get('782289316931567627');
 
-// Check if they have one of many roles
-if(message.member.roles.cache.has(role.id)) {
-  member.roles.remove(role).catch(console.error);
-} else {
-  msg.member.roles.add(args).catch(console.error);
-}
+  if(args[0] == 'Helfer'){
+    const roleHelfer = myGuild.roles.cache.find(role => role.name === 'Helfer');
+    console.log(`Found the role ${roleHelfer.name}`);
+    msg.member.roles.add(roleHelfer);
 
-  
+  } else if(args[0] == 'Anfänger'){
+    const roleAnfaenger = myGuild.roles.cache.find(role => role.name === 'Anfänger');
+    console.log(`Found the role ${roleAnfaenger.name}`);
+    msg.member.addRole(roleAnfaenger).catch(console.error);
+
+  } else if(args[0] == 'Developer'){
+    const roleDeveloper = myGuild.roles.cache.find(role => role.name === 'Developer');
+    console.log(`Found the role ${roleDeveloper.name}`);
+    msg.member.addRole(roleDeveloper).catch(console.error);
+
+  } else {
+    msg.channel.send('This not a role')
+  }
 }
 
 
@@ -131,3 +142,4 @@ client.on('guildMemberAdd', member => {
 
 //Logging in the Bot to change the world. Or at least the discord server.
 client.login(config.token)
+console.log('running')
