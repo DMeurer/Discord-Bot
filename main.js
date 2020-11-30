@@ -95,6 +95,12 @@ function cmd_role(msg, args){
       console.log(`Found the role ${roleDeveloper.name}`);
       msg.member.roles.add(roleDeveloper);
 
+    } else if(args[1] == config.readRulesToken){
+
+      const roleRules = myGuild.roles.cache.find(role => role.name === 'Regeln sind wichtig');
+      console.log(`Found the role ${roleRules.name}`);
+      msg.member.roles.add(roleRules);
+
     } else {
       msg.channel.send('usage = "::role <add/remove> <Rolle>" ')
     }
@@ -118,11 +124,14 @@ function cmd_role(msg, args){
 
     } else {
       msg.channel.send('usage = "::role <add/remove> <Rolle>" ')
+      return;
     }
 
   } else {
     msg.channel.send('usage = "::role <add/remove> <Rolle>" ')
+    return;
   }
+  msg.delete();
 }
 
 
