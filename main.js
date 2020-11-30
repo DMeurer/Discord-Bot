@@ -35,6 +35,7 @@ var cmdmap = {
 
 function cmd_say(msg, args){
   msg.channel.send(args.join(' '))
+  msg.delete();
 }
 
 function cmd_test(msg, args){
@@ -47,19 +48,17 @@ function cmd_ping(msg, args){
 
 function cmd_rip(msg, args){
   const attachment = new MessageAttachment('https://i.imgur.com/w3duR07.png');
-  msg.channel.send(`${msg.author},`, attachment);
+  msg.channel.send(`${msg.author}:`, attachment);
+  msg.delete();
 }
 
 function cmd_embed(msg, args){
   const embed = new MessageEmbed()
-    // Set the title of the field
     .setTitle(args[0])
-    // Set the color of the embed
     .setColor(0xff0000)
-    // Set the main content of the embed
-    .setDescription(args);
-    // Send the embed to the same channel as the message
-    msg.channel.send(embed);
+    .setDescription(' ');
+  msg.channel.send(embed);
+  msg.delete();
 }
 
 function cmd_help(msg, args){
@@ -72,7 +71,8 @@ function cmd_help(msg, args){
     .setTitle('Here is some help')
     .setColor(0xffff00)
     .setDescription(helpText);
-    msg.channel.send(embed);
+  msg.channel.send(embed);
+  msg.delete();
 }
 
 //Role manager
