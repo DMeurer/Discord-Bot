@@ -1,5 +1,7 @@
 # Discord-Bot
 
+![Discord](https://img.shields.io/discord/782289316931567627?label=Discord)
+
 This is a bot for my own Discord Server.
 You can join the [Domi-Dev Discord Server](https://discord.gg/ATBarFq7Va "Domi-Dev Discord Server") here.
 
